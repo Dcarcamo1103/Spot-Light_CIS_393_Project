@@ -1,3 +1,34 @@
 body {
     background-color: #EADFAD;
 }
+
+#menu_bar {
+    position: fixed;
+    display: inline-flex;
+    justify-content: space-around;
+    z-index: 1;
+    width: 100%;
+    height: 60px;
+    background-color: #1b1b1d;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+#menu_bar > nav {
+    align-self: center;
+    float: right;
+    /* font-family: "Bangers", system-ui; */
+    letter-spacing: 0.2em;
+}
+
+#menu_bar > nav > a {
+    color: #f7f8ed;
+    text-decoration: none;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 20px;
+    padding: 7px 14px;
+    margin-left: 80px;
+    transition: all 0.30s;
+}
