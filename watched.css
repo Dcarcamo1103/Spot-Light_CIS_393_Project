@@ -8,6 +8,7 @@ body {
     position: fixed;
     display: flex; /* Changed from inline-flex to flex */
     justify-content: space-around;
+    overflow: hidden;
     align-items: center; /* Vertically center children */
     width: 100vw;
     height: 75px;
@@ -26,7 +27,8 @@ body {
 #menu_bar > nav {
     align-self: center;
     float: right;
-    font-size: 17px;
+    font-size: 18px;
+    font-weight: 500;
     font-family: "Funnel Sans", serif;
 }
 
@@ -38,7 +40,7 @@ body {
     border-bottom-style: solid;
     border-width: 3px;
     /* border-radius: 20px; */
-    padding: 14px 24px;
+    padding: 23px 24px;
     margin-left: 80px;
     transition: all 0.30s;
 }

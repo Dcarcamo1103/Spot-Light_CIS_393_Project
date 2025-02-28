@@ -27,7 +27,7 @@ body {
 #menu_bar > nav {
     align-self: center;
     float: right;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 500;
     font-family: "Funnel Sans", serif;
 }
@@ -40,11 +40,123 @@ body {
     border-bottom-style: solid;
     border-width: 3px;
     /* border-radius: 20px; */
-    padding: 24px 24px;
+    padding: 23px 24px;
     margin-left: 80px;
     transition: all 0.30s;
 }
 
 #menu_bar > nav > .nav_btn:hover {
     border-bottom-color: #EADFAD;
+}
+
+#welcome_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 75px);
+}
+
+.gallery {
+    margin-top: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+.image-container {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #EADFAD;
+    overflow: hidden;
+    transition: transform 0.3s ease-out;
+}
+
+.image-container > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#main {
+    width: 350px;
+    height: 400px;
+    z-index: 3;
+}
+
+#left-1 {
+    transform: rotate(-15deg) translateY(20px);
+    z-index: 2;
+}
+
+#left-2 {
+    transform: rotate(-30deg) translateY(80px);
+    z-index: 1;
+}
+
+#right-1 {
+    transform: rotate(15deg) translateY(20px);
+    z-index: 2;
+}
+
+#right-2 {
+    transform: rotate(30deg) translateY(80px);
+    z-index: 1;
+}
+
+.image-container:hover {
+    transform: scale(1.1) !important;
+    z-index: 4 !important;
+}
+
+#welcome_text {
+    margin-top: 35px;
+    text-align: center;
+    width: 600px;
+    height: fit-content;
+    margin: 25px;
+}
+
+#welcome_text > h1 {
+    font-size: 50px;
+    color: #EADFAD;
+    font-family: "Lexend", serif;
+    font-weight: 300;
+    word-spacing: 1.2px;
+    line-height: 2rem;
+}
+
+#welcome_text > p {
+    color: #EADFAD;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: "Funnel Sans", serif;
+    word-spacing: 1.2px;
+    line-height: 2rem;
+}
+
+#welcome_text > a {
+    color: #EADFAD;
+    text-decoration: none;
+    border-style: solid;
+    border-color: #B73F1D;
+    border-bottom-style: solid;
+    background-color: #B73F1D;
+    border-width: 3px;
+    border-radius: 15px;
+    font-size: large;
+    padding: 15px 20px;
+    transition: all 0.30s;
+}
+
+#welcome_text > a:hover {
+    opacity: 0.8;
 }
