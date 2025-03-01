@@ -13,6 +13,7 @@ body {
     width: 100vw;
     height: 75px;
     background-color: #B73F1D;
+    z-index: 100;
 }
 
 #menu_bar > a > h1 {
@@ -56,6 +57,7 @@ body {
     align-items: center;
     gap: 50px;
     height: fit-content;
+    /* background-color: aqua; */
 }
 
 .gallery {
@@ -66,7 +68,6 @@ body {
     justify-content: center;
     gap: 20px;
     position: relative;
-    /* background-color: aquamarine; */
 }
 
 .image-container {
@@ -165,6 +166,10 @@ body {
 
 @media (min-width: 992px) {
     .gallery{
-        margin-top: 45vh;
+        margin-top: 20vh;
+    }
+
+    #welcome_section{
+        padding-bottom: 7vh;
     }
 }
