@@ -45,6 +45,10 @@ body {
     transition: all 0.30s;
 }
 
+#menu_bar > nav > a.active {
+    border-bottom-color: #EADFAD;
+}
+
 #menu_bar > nav > .nav_btn:hover {
     border-bottom-color: #EADFAD;
 }
