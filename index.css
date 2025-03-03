@@ -61,6 +61,7 @@ body {
     align-items: center;
     gap: 50px;
     height: calc(100vh - 75px);
+    /* background-color: aqua; */
 }
 
 .gallery {
@@ -127,6 +128,7 @@ body {
     width: 600px;
     height: fit-content;
     margin: 25px;
+    /* background-color: aqua; */
 }
 
 #welcome_text > h1 {
@@ -167,11 +169,16 @@ body {
 }
 
 @media (min-width: 992px) {
+    #welcome_section {
+        height: auto;
+        /* padding: 0 10vw; */
+    }
+
     .gallery{
         margin-top: 20vh;
     }
 
-    #welcome_section{
-        padding-bottom: 7vh;
+    #welcome_text {
+        margin-bottom: 7vh;
     }
 }
