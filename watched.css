@@ -52,3 +52,63 @@ body {
 #menu_bar > nav > .nav_btn:hover {
     border-bottom-color: #EADFAD;
 }
+
+#watched_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure the section takes full viewport height */
+}
+
+#add_btn {
+    font-family: 'Lexend', serif;
+    position: relative;
+    color: #EADFAD;
+    text-decoration: none;
+    border-style: solid;
+    border-color: #B73F1D;
+    background-color: #B73F1D;
+    border-width: 3px;
+    border-radius: 15px;
+    font-size: large;
+    padding: 15px 20px;
+    transition: all 0.30s;
+}
+
+#add_btn:hover {
+    opacity: 0.8;
+}
+
+.modal-content {
+    background-color: #B73F1D;
+}
+
+.modal-header > h1 {
+    font-size: 50px;
+    color: #EADFAD;
+    font-family: "Lexend", serif;
+    font-weight: 400;
+    word-spacing: 1.2px;
+    line-height: 2rem;
+}
+
+.form_label,
+.form_input { 
+    display: block; 
+    width: 100%; 
+    margin-bottom: 8px;
+}
+
+.form_label {
+    color: #EADFAD;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: "Funnel Sans", serif;
+    /* word-spacing: 1.2px; */
+    line-height: 2rem;
+}
+
+#movieForm > button {
+    color: #B73F1D;
+}
