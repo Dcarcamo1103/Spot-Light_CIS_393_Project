@@ -62,16 +62,22 @@
                         <input type="number" id="year" min="1888" max="2025" class="form_input">
                         
                         <label for="status" class="form_label">Status</label>
-                        <div>
-                            <input type="radio" id="watched" name="status" value="Watched" required>
-                            <label for="watched">Watched</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="watched" value="watched" checked required>
+                            <label class="form-check-label" for="watched">
+                                Watched
+                            </label>
                         </div>
-                        <div>
-                            <input type="radio" id="to_watch" name="status" value="To Watch" required>
-                            <label for="to_watch">To Watch</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="to_watch" value="to_watch" required>
+                            <label class="form-check-label" for="to_watch">
+                                To Be Watched
+                            </label>
                         </div>
-                        
-                        <button type="submit">Add Movie</button>
+
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <input class="btn btn-primary" id="submit" type="submit" value="Add Movie">
+                        </div>
                     </form>
                 </div>
               </div>

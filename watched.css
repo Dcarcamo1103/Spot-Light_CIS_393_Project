@@ -109,6 +109,36 @@ body {
     line-height: 2rem;
 }
 
-#movieForm > button {
+.form-check-input {
+    font-size: larger;
+}
+
+.form-check-label{
+    color: #EADFAD;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: "Funnel Sans", serif;
+    /* word-spacing: 1.2px; */
+    line-height: 2rem;
+    /* display: block; */
+}
+
+#submit {
+    margin-top: 8px;
+    font-family: 'Lexend', serif;
+    position: relative;
     color: #B73F1D;
+    text-decoration: none;
+    border-style: solid;
+    border-color: #B73F1D;
+    background-color: #EADFAD;
+    border-width: 3px;
+    border-radius: 15px;
+    font-size: large;
+    padding: 15px 20px;
+    transition: all 0.30s;
+}
+
+#submit:hover {
+    opacity: 0.8;
 }
