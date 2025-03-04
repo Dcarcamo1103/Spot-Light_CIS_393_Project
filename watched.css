@@ -53,6 +53,14 @@ body {
     border-bottom-color: #EADFAD;
 }
 
+#nav_add_btn {
+    display: none;
+}
+
+#nav_add_btn:hover {
+    border-bottom-color: #EADFAD;
+}
+
 #watched_section {
     display: flex;
     flex-direction: column;
@@ -63,7 +71,7 @@ body {
 
 #add_btn {
     font-family: 'Lexend', serif;
-    position: relative;
+    /* position: relative; */
     color: #EADFAD;
     text-decoration: none;
     border-style: solid;
@@ -141,4 +149,55 @@ body {
 
 #submit:hover {
     opacity: 0.8;
+}
+
+#movieTable {
+    width: 85%;
+    margin-top: 20px;
+}
+
+tbody > tr {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 3px solid #B73F1D;
+    color: #EADFAD;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: "Funnel Sans", serif;
+    word-spacing: 1.2px;
+}
+
+.list_btn {
+    font-family: 'Lexend', serif;
+    position: relative;
+    color: #B73F1D;
+    text-decoration: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 20px;
+    height: 100%;
+    padding: 15px 20px;
+    transition: all 0.30s;
+    margin: 0;
+}
+
+#edit:hover {
+    background-color: #4B607F;
+    color: #EADFAD;
+}
+
+#delete:hover {
+    background-color: #B73F1D;
+    color: #EADFAD;
+}
+
+#table_header > th {
+    color: #EADFAD;
+    font-family: "Lexend", serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 3px solid #B73F1D;
 }
