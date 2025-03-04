@@ -153,7 +153,8 @@ body {
 
 #movieTable {
     width: 85%;
-    margin-top: 20px;
+    display: inline;
+    /* margin-top: 20vh; */
 }
 
 tbody > tr {
