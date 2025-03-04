@@ -1,12 +1,21 @@
-document.getElementById('movieForm').addEventListener('submit', function(event) {
+document.getElementById('movieForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    document.getElementById('movieTable').style.display = 'table';
 
     const genre = document.getElementById('genre').value;
     const title = document.getElementById('title').value;
     const year = document.getElementById('year').value;
     const status = document.querySelector('input[name="status"]:checked').value;
+
+    // Validate movie name using OMDb API
+    const isValid = await validateMovie(title);
+    if (!isValid) {
+        const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
+        modal.hide();
+        return;
+    }
+        
     const movie = { genre, title, year, status };
+    document.getElementById('movieTable').style.display = 'table';
 
     addMovieToTable(movie);
     this.reset(); // Reset the form after submission
@@ -14,7 +23,21 @@ document.getElementById('movieForm').addEventListener('submit', function(event) 
     // Close the modal
     const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
     modal.hide();
+
 });
+
+async function validateMovie(title) {
+    const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8af8cd65`; // Replace YOUR_API_KEY with a valid API key
+    
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.Response === "True"; // Return true if the movie exists
+    } catch (error) {
+        console.error("Error validating movie:", error);
+        return false;
+    }
+}
 
 // Genre to Image Mapping
 const genreIcons = {
