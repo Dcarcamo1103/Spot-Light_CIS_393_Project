@@ -6,11 +6,24 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const year = document.getElementById('year').value;
     const status = document.querySelector('input[name="status"]:checked').value;
 
+    const alertPlaceholder = document.getElementById('warning_placeholder')
+    alertPlaceholder.innerHTML = '' // Clear alerts
+    const appendAlert = (message, type) => {
+        const wrapper = document.createElement('div')
+        wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+        ].join('')
+
+        alertPlaceholder.append(wrapper)
+    }
+
     // Validate movie name using OMDb API
     const isValid = await validateMovie(title);
     if (!isValid) {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
-        modal.hide();
+        appendAlert('Movie not found. Please enter a valid movie title.', 'warning');
         return;
     }
         
@@ -24,10 +37,14 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
     modal.hide();
 
+    const toastLiveExample = document.getElementById('liveToast');
+    const toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
 });
 
+// OMDb API Validation Function
 async function validateMovie(title) {
-    const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8af8cd65`; // Replace YOUR_API_KEY with a valid API key
+    const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8af8cd65`;
     
     try {
         const response = await fetch(url);
