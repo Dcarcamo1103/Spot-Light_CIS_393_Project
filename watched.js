@@ -41,6 +41,7 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
     modal.hide();
 
+    // Show toast notification
     const toastLiveExample = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
