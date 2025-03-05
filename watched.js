@@ -3,31 +3,35 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
 
     const genre = document.getElementById('genre').value;
     const title = document.getElementById('title').value;
-    const year = document.getElementById('year').value;
     const status = document.querySelector('input[name="status"]:checked').value;
 
-    const alertPlaceholder = document.getElementById('warning_placeholder')
-    alertPlaceholder.innerHTML = '' // Clear alerts
+    const alertPlaceholder = document.getElementById('warning_placeholder');
+    alertPlaceholder.innerHTML = ''; // Clear alerts
     const appendAlert = (message, type) => {
-        const wrapper = document.createElement('div')
+        const wrapper = document.createElement('div');
         wrapper.innerHTML = [
-        `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
-        `   <div>${message}</div>`,
-        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-        '</div>'
-        ].join('')
+            `<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
+            `   <div>${message}</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+        ].join('');
 
-        alertPlaceholder.append(wrapper)
-    }
+        alertPlaceholder.append(wrapper);
+    };
 
     // Validate movie name using OMDb API
-    const isValid = await validateMovie(title);
-    if (!isValid) {
+    const movieData = await validateMovie(title);
+    if (!movieData) {
         appendAlert('Movie not found. Please enter a valid movie title.', 'warning');
         return;
     }
-        
-    const movie = { genre, title, year, status };
+
+    const movie = {
+        genre,
+        title: movieData.Title, // Use the full movie name from the API
+        year: movieData.Year, // Use the release year from the API
+        status
+    };
     document.getElementById('movieTable').style.display = 'table';
 
     addMovieToTable(movie);
@@ -45,14 +49,14 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
 // OMDb API Validation Function
 async function validateMovie(title) {
     const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8af8cd65`;
-    
+
     try {
         const response = await fetch(url);
         const data = await response.json();
-        return data.Response === "True"; // Return true if the movie exists
+        return data.Response === "True" ? data : null; // Return movie data if the movie exists
     } catch (error) {
         console.error("Error validating movie:", error);
-        return false;
+        return null;
     }
 }
 

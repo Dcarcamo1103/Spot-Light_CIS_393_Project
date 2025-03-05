@@ -90,6 +90,7 @@ body {
 
 .modal-content {
     background-color: #B73F1D;
+    border-radius: 15px;
 }
 
 .modal-header {
@@ -104,6 +105,10 @@ body {
     font-weight: 400;
     word-spacing: 1.2px;
     line-height: 2rem;
+}
+
+.modal-body {
+    padding: 25px;
 }
 
 .form_label,
