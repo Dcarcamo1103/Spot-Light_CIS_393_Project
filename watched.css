@@ -163,8 +163,15 @@ body {
 
 #movieTable {
     width: 85%;
-    display: inline;
-    /* margin-top: 20vh; */
+}
+
+#table_header > th {
+    color: #EADFAD;
+    font-family: "Lexend", serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 3px solid #B73F1D;
 }
 
 tbody > tr {
@@ -202,13 +209,4 @@ tbody > tr {
 #delete:hover {
     background-color: #B73F1D;
     color: #EADFAD;
-}
-
-#table_header > th {
-    color: #EADFAD;
-    font-family: "Lexend", serif;
-    font-weight: 400;
-    font-size: 20px;
-    text-align: center;
-    border-bottom: 3px solid #B73F1D;
 }
