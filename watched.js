@@ -30,9 +30,10 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
         genre,
         title: movieData.Title, // Use the full movie name from the API
         year: movieData.Year, // Use the release year from the API
+        type: movieData.Type, // Use the movie type from the API
         status
     };
-    document.getElementById('movieTable').style.display = 'table';
+    document.getElementById('movieTable').style.display = 'table'; // Show the table after adding a movie
 
     addMovieToTable(movie);
     this.reset(); // Reset the form after submission
@@ -46,6 +47,52 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
 });
+
+let debounceTimeout;
+document.getElementById('title').addEventListener('input', function() {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(async () => {
+        const title = this.value;
+        const suggestionsList = document.getElementById('suggestions');
+        suggestionsList.innerHTML = ''; // Clear previous suggestions
+
+        if (title.length <= 2) {
+            suggestionsList.classList.remove('show');
+            return; // Only search for titles with 2 or more characters
+        }
+
+        const suggestions = await fetchSuggestions(title);
+        if (suggestions && suggestions.length > 1) {
+            suggestions.slice(0, 4).forEach(movie => { // Display only the first 4 results
+                const listItem = document.createElement('li');
+                listItem.classList.add('list-group-item', 'list-group-item-action');
+                listItem.textContent = `${movie.Title} (${movie.Year})`;
+                listItem.addEventListener('click', () => {
+                    document.getElementById('title').value = movie.Title;
+                    suggestionsList.innerHTML = ''; // Clear suggestions
+                    suggestionsList.classList.remove('show');
+                });
+                suggestionsList.appendChild(listItem);
+            });
+            suggestionsList.classList.add('show');
+        } else {
+            suggestionsList.classList.remove('show');
+        }
+    }, 300); // Wait for 300ms after the user stops typing
+});
+
+async function fetchSuggestions(title) {
+    const url = `https://www.omdbapi.com/?s=${encodeURIComponent(title)}&apikey=8af8cd65`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.Response === "True" ? data.Search : null;
+    } catch (error) {
+        console.error("Error fetching suggestions:", error);
+        return null;
+    }
+}
 
 // OMDb API Validation Function
 async function validateMovie(title) {
@@ -86,9 +133,10 @@ function addMovieToTable(movie) {
     `;
     row.insertCell(1).textContent = movie.title;
     row.insertCell(2).textContent = movie.year;
-    row.insertCell(3).textContent = movie.status;
+    row.insertCell(3).textContent = movie.type;
+    row.insertCell(4).textContent = movie.status;
 
-    const actions = row.insertCell(4);
+    const actions = row.insertCell(5);
     actions.innerHTML = `
         <button id="edit" class="list_btn" onclick="openEditModal(${JSON.stringify(movie)})">Edit</button>
         <button id="delete" class="list_btn" onclick="deleteMovie(this)">Delete</button>

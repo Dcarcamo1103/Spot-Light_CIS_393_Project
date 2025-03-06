@@ -127,6 +127,28 @@ body {
     line-height: 2rem;
 }
 
+#title {
+    background-color: rgba(234, 223, 173, 0.8);
+    border-style: none;
+    border-radius: 7px;
+    font-size: 18px;
+    font-family: "Funnel Sans", serif;
+    padding: 9px;
+}
+
+#genre {
+    background-color: rgba(234, 223, 173, 0.8);
+    border-style: none;
+    border-radius: 7px;
+    font-size: 18px;
+    font-family: "Funnel Sans", serif;
+    padding: 9px;
+}
+
+#genre:hover {
+    cursor: pointer;
+}
+
 .form-check-input {
     font-size: larger;
 }
@@ -209,4 +231,28 @@ tbody > tr {
 #delete:hover {
     background-color: #B73F1D;
     color: #EADFAD;
+}
+
+#suggestions {
+    max-height: 200px;
+    overflow-y: auto;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+    opacity: 0;
+}
+
+#suggestions > li {
+    border-color: #EADFAD;
+    background-color: rgba(234, 223, 173, 0.8);
+    color: #B73F1D;
+    transition: all 0.30s;
+}
+
+#suggestions > li:hover {
+    cursor: pointer;
+    background-color: rgba(234, 223, 173, 1);
+}
+
+#suggestions.show {
+    opacity: 1;
+    max-height: 200px;
 }
