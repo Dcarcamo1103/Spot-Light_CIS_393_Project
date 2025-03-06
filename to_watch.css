@@ -52,3 +52,9 @@ body {
 #menu_bar > nav > .nav_btn:hover {
     border-bottom-color: #EADFAD;
 }
+
+@media (min-width: 992px) {
+    #menu_bar > nav > a {
+        margin-left: 50px;
+    }
+}
