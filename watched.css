@@ -209,6 +209,28 @@ tbody > tr {
     word-spacing: 1.2px;
 }
 
+#movieTitle:hover {
+    cursor: pointer;
+}
+
+#modalMovieTitle {
+    font-size: 50px;
+    color: #EADFAD;
+    font-family: "Lexend", serif;
+    font-weight: 400;
+    word-spacing: 1.2px;
+    line-height: 2rem;
+}
+
+#moviePlot {
+    font-size: 18px;
+    color: #EADFAD;
+    font-family: "Funnel Sans", serif;
+    font-weight: 200;
+    word-spacing: 1.2px;
+    line-height: 1.3em;
+}
+
 .list_btn {
     font-family: 'Lexend', serif;
     position: relative;

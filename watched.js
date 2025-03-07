@@ -31,7 +31,8 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
         title: movieData.Title, // Use the full movie name from the API
         year: movieData.Year, // Use the release year from the API
         type: movieData.Type, // Use the movie type from the API
-        status
+        status,
+        imdbID: movieData.imdbID // Store the IMDb ID for fetching details later
     };
     document.getElementById('movieTable').style.display = 'table'; // Show the table after adding a movie
 
@@ -108,6 +109,20 @@ async function validateMovie(title) {
     }
 }
 
+// Fetch movie details by IMDb ID
+async function fetchMovieDetails(imdbID) {
+    const url = `https://www.omdbapi.com/?i=${imdbID}&apikey=8af8cd65`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.Response === "True" ? data : null;
+    } catch (error) {
+        console.error("Error fetching movie details:", error);
+        return null;
+    }
+}
+
 // Genre to Image Mapping
 const genreIcons = {
     "Action": "images/action_icon.png",
@@ -131,7 +146,9 @@ function addMovieToTable(movie) {
     row.insertCell(0).innerHTML = `
         <img src="${genreImage}" alt="${movie.genre}" width="40" height="40" style="vertical-align:middle; margin-right:10px;">
     `;
-    row.insertCell(1).textContent = movie.title;
+    row.insertCell(1).innerHTML = `
+        <a id="movieTitle" data-bs-toggle="modal" data-bs-target="#movieModal" data-imdbid="${movie.imdbID}">${movie.title}</a>
+    `;
     row.insertCell(2).textContent = movie.year;
     row.insertCell(3).textContent = movie.type;
     row.insertCell(4).textContent = movie.status;
@@ -145,6 +162,22 @@ function addMovieToTable(movie) {
     document.getElementById('nav_add_btn').style.display = 'inline';
     document.getElementById('add_btn').style.display = 'none';
 }
+
+// Event listener for movie title clicks
+document.addEventListener('click', async function(event) {
+    if (event.target && event.target.id === 'movieTitle') {
+        const imdbID = event.target.getAttribute('data-imdbid');
+        const movieDetails = await fetchMovieDetails(imdbID);
+
+        if (movieDetails) {
+            document.getElementById('movieModalTitle').textContent = movieDetails.Title;
+            document.querySelector('#movieModal .modal-body').innerHTML = `
+                <img src="${movieDetails.Poster}" alt="${movieDetails.Title}" class="img-fluid rounded mx-auto d-block" style="margin-bottom: 15px;">
+                <p id="moviePlot">${movieDetails.Plot}</p>
+            `;
+        }
+    }
+});
 
 function openEditModal(movie) {
     // Implement edit functionality
