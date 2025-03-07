@@ -278,3 +278,9 @@ tbody > tr {
     opacity: 1;
     max-height: 200px;
 }
+
+@media (min-width: 992px) {
+    #menu_bar > nav > a {
+        margin-left: 50px;
+    }
+}

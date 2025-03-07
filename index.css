@@ -169,6 +169,10 @@ body {
 }
 
 @media (min-width: 992px) {
+    #menu_bar > nav > a {
+        margin-left: 50px;
+    }
+
     #welcome_section {
         height: auto;
         /* padding: 0 10vw; */
