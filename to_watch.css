@@ -53,6 +53,44 @@ body {
     border-bottom-color: #EADFAD;
 }
 
+#content_section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure the section takes full viewport height */
+}
+
+#movieTable {
+    width: 85%;
+}
+
+#table_header > th {
+    color: #EADFAD;
+    font-family: "Lexend", serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 3px solid #B73F1D;
+}
+
+tbody > tr {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 3px solid #B73F1D;
+    color: #EADFAD;
+    margin-top: 15px;
+    margin-bottom: 35px;
+    font-size: 20px;
+    font-weight: 200;
+    font-family: "Funnel Sans", serif;
+    word-spacing: 1.2px;
+}
+
+#movieTitle:hover {
+    cursor: pointer;
+}
+
 @media (min-width: 992px) {
     #menu_bar > nav > a {
         margin-left: 50px;
