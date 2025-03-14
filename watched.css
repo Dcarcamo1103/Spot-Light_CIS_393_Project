@@ -41,7 +41,7 @@ body {
     border-bottom-style: solid;
     border-width: 3px;
     /* border-radius: 20px; */
-    padding: 23px 24px;
+    padding: 22px 24px;
     margin-left: 80px;
     transition: all 0.30s;
 }
@@ -222,7 +222,7 @@ tbody > tr:hover {
 }
 
 #delete_icon {
-    padding-bottom: 3px;
+    padding-bottom: 5px;
 }
 
 #delete {
@@ -240,7 +240,7 @@ tbody > tr:hover {
 }
 
 #edit_icon {
-    padding-bottom: 3px;
+    padding-bottom: 5px;
 }
 
 #edit {
@@ -281,9 +281,18 @@ tbody > tr:hover {
     max-height: 200px;
 }
 
-@media (min-width: 992px) {
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
     #menu_bar > nav > a {
         margin-left: 35px;
-        padding: 22px 15px;
+    }
+
+    #delete_icon {
+        padding-bottom: 3px;
+    }
+
+    #edit_icon {
+        padding-bottom: 3px;
     }
 }
