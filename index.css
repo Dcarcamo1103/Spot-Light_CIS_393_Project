@@ -170,7 +170,8 @@ body {
 
 @media (min-width: 992px) {
     #menu_bar > nav > a {
-        margin-left: 50px;
+        margin-left: 35px;
+        padding: 23px 15px;
     }
 
     #welcome_section {
@@ -183,6 +184,6 @@ body {
     }
 
     #welcome_text {
-        margin-bottom: 7vh;
+        margin-bottom: 9vh;
     }
 }

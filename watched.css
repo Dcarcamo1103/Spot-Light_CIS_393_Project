@@ -13,6 +13,7 @@ body {
     width: 100vw;
     height: 75px;
     background-color: #B73F1D;
+    z-index: 100;
 }
 
 #menu_bar > a > h1 {
@@ -53,8 +54,8 @@ body {
     border-bottom-color: #EADFAD;
 }
 
-#nav_add_btn {
-    display: none;
+#add_sign {
+    font-size: larger;
 }
 
 #nav_add_btn:hover {
@@ -64,28 +65,10 @@ body {
 #watched_section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Changed from center to flex-start */
     align-items: center;
-    height: 100vh; /* Ensure the section takes full viewport height */
-}
-
-#add_btn {
-    font-family: 'Lexend', serif;
-    /* position: relative; */
-    color: #EADFAD;
-    text-decoration: none;
-    border-style: solid;
-    border-color: #B73F1D;
-    background-color: #B73F1D;
-    border-width: 3px;
-    border-radius: 15px;
-    font-size: large;
-    padding: 15px 20px;
-    transition: all 0.30s;
-}
-
-#add_btn:hover {
-    opacity: 0.8;
+    height: fit-content; /* Ensure the section takes full viewport height */
+    padding-top: 95px; /* Added padding to account for the nav bar height and 20px gap */
 }
 
 .modal-content {
@@ -185,6 +168,8 @@ body {
 
 #movieTable {
     width: 85%;
+    top: 95px; /* Position it 20px below the nav bar */
+    margin-bottom: 40px;
 }
 
 #table_header > th {
@@ -207,6 +192,11 @@ tbody > tr {
     font-weight: 200;
     font-family: "Funnel Sans", serif;
     word-spacing: 1.2px;
+    transition: all 0.30s ease-out;
+}
+
+tbody > tr:hover {
+    background-color: #2d2d2b;
 }
 
 #movieTitle:hover {
@@ -231,7 +221,11 @@ tbody > tr {
     line-height: 1.3em;
 }
 
-.list_btn {
+#delete_icon {
+    padding-bottom: 3px;
+}
+
+#delete {
     font-family: 'Lexend', serif;
     position: relative;
     color: #B73F1D;
@@ -245,14 +239,22 @@ tbody > tr {
     margin: 0;
 }
 
-#edit:hover {
-    background-color: #4B607F;
-    color: #EADFAD;
+#edit_icon {
+    padding-bottom: 3px;
 }
 
-#delete:hover {
-    background-color: #B73F1D;
-    color: #EADFAD;
+#edit {
+    font-family: 'Lexend', serif;
+    position: relative;
+    color: #4B607F;
+    text-decoration: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 20px;
+    height: 100%;
+    padding: 15px 20px;
+    transition: all 0.30s;
+    margin: 0;
 }
 
 #suggestions {
@@ -281,6 +283,7 @@ tbody > tr {
 
 @media (min-width: 992px) {
     #menu_bar > nav > a {
-        margin-left: 50px;
+        margin-left: 35px;
+        padding: 22px 15px;
     }
 }
