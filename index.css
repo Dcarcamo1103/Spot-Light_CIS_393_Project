@@ -168,7 +168,7 @@ body {
     opacity: 0.8;
 }
 
-@media (max-width: 992px) {
+@media (min-width: 992px) {
     #menu_bar > nav > a {
         margin-left: 35px;
         padding: 23px 15px;
