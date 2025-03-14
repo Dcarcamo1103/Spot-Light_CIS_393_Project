@@ -42,6 +42,11 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     addMovieToTable(movie);
     this.reset(); // Reset the form after submission
 
+    // Reset the suggestion box
+    const suggestionsList = document.getElementById('suggestions');
+    suggestionsList.innerHTML = '';
+    suggestionsList.classList.remove('show');
+
     // Close the modal
     const modal = bootstrap.Modal.getInstance(document.getElementById('exampleModal'));
     modal.hide();
