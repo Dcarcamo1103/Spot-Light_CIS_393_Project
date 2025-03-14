@@ -67,7 +67,7 @@ body {
     flex-direction: column;
     justify-content: flex-start; /* Changed from center to flex-start */
     align-items: center;
-    height: fit-content; /* Ensure the section takes full viewport height */
+    height: fit-content;
     padding-top: 95px; /* Added padding to account for the nav bar height and 20px gap */
 }
 
