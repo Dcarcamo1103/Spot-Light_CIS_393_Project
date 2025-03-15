@@ -168,9 +168,9 @@ body {
     opacity: 0.8;
 }
 
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px) {
+@media screen 
+and (min-width: 1024px) 
+and (max-height: 1310px) {
     #menu_bar > nav > a {
         margin-left: 35px;
         padding: 23px 15px;
