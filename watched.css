@@ -71,6 +71,37 @@ body {
     padding-top: 95px; /* Added padding to account for the nav bar height and 20px gap */
 }
 
+#tutorial_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Changed to 50vh for better responsiveness */
+    padding: 20px;
+    /* background-color: antiquewhite; */
+}
+
+#tutorial_text > h1 {
+    font-size: 50px;
+    color: #B73F1D;
+    font-family: "Lexend", serif;
+    font-weight: 400;
+    word-spacing: 1.2px;
+    line-height: 2rem;
+    margin-top: 20px; /* Added margin to separate from the nav bar */
+    margin-bottom: 20px; /* Added margin to separate from the paragraph */
+    text-align: center; /* Centered the text */
+}
+
+#tutorial_text > p {
+    font-size: 20px;
+    color: #B73F1D;
+    font-family: "Funnel Sans", serif;
+    font-weight: 200;
+    word-spacing: 1.2px;
+    line-height: 2rem;
+}
+
 .modal-content {
     background-color: #B73F1D;
     border-radius: 15px;
