@@ -38,6 +38,7 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
         imdbID: movieData.imdbID // Store the IMDb ID for fetching details later
     };
     document.getElementById('movieTable').style.display = 'table'; // Show the table after adding a movie
+    document.getElementById('tutorial_text').style.display = 'none'; // Hide the tutorial text
 
     addMovieToTable(movie);
     this.reset(); // Reset the form after submission
