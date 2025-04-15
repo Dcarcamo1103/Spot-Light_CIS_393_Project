@@ -58,11 +58,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Ensure the section takes full viewport height */
+    padding-top: 95px;
+    height: fit-content;
 }
 
 #movieTable {
     width: 85%;
+    top: 95px; /* Position it 20px below the nav bar */
+    margin-bottom: 40px;
 }
 
 #table_header > th {
@@ -91,9 +94,9 @@ tbody > tr {
     cursor: pointer;
 }
 
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px) {
+@media screen 
+and (min-width: 1024px) 
+and (max-height: 1310px) {
     #menu_bar > nav > a {
         margin-left: 35px;
         padding: 23px 15px;
