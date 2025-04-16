@@ -201,5 +201,6 @@ function deleteMovie(button) {
     const tbody = document.querySelector('#movieTable tbody');
     if (tbody.rows.length === 0) {
         document.getElementById('movieTable').style.display = 'none';
+        document.getElementById('tutorial_text').style.display = 'flex'; // Show the tutorial text again
     }
 }
