@@ -4,7 +4,7 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-    const genre = document.getElementById('genre').value;
+    // Remove genre fetching from the form
     const title = document.getElementById('title').value;
     const status = document.querySelector('input[name="status"]:checked').value;
 
@@ -30,7 +30,7 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     }
 
     const movie = {
-        genre,
+        genre: movieData.Genre, // Get the first genre from the list
         title: movieData.Title, // Use the full movie name from the API
         year: movieData.Year, // Use the release year from the API
         type: movieData.Type, // Use the movie type from the API
@@ -132,28 +132,17 @@ async function fetchMovieDetails(imdbID) {
     }
 }
 
-// Genre to Image Mapping
-const genreIcons = {
-    "Action": "images/action_icon.png",
-    "Adventure": "images/adventure_icon.png",
-    "Comedy": "images/comedy_icon.png",
-    "Drama": "images/drama_icon.png",
-    "Horror": "images/horror_icon.png",
-    "Sci-Fi": "images/sci_fi_icon.png",
-    "Romance": "images/romance_icon.png",
-    "Fantasy": "images/fantasy_icon.png",
-    "Mystery": "images/mystery_icon.png",
-};
-
 function addMovieToTable(movie) {
     const tbody = document.querySelector('#movieTable tbody');
     const row = tbody.insertRow();
 
-    // Get the image path for the selected genre, default to "unknown.png" if not found
-    const genreImage = genreIcons[movie.genre] || "images/unknown.png";
+    // Split genres and create individual badges
+    const genreBadges = movie.genre.split(',').map(genre => {
+        return `<span id="movieGenre" class="badge rounded-pill" style="background-color: #B73F1D; color: #EADFAD; margin-right: 5px; font-family: "Funnel Sans", serif;">${genre.trim()}</span>`;
+    }).join('');
 
     row.insertCell(0).innerHTML = `
-        <img src="${genreImage}" alt="${movie.genre}" width="40" height="40" style="vertical-align:middle; margin-right:10px;">
+        ${genreBadges}
     `;
     row.insertCell(1).innerHTML = `
         <a id="movieTitle" data-bs-toggle="modal" data-bs-target="#movieModal" data-imdbid="${movie.imdbID}">${movie.title}</a>

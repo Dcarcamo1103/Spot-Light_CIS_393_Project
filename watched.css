@@ -150,19 +150,6 @@ body {
     padding: 9px;
 }
 
-#genre {
-    background-color: rgba(234, 223, 173, 0.8);
-    border-style: none;
-    border-radius: 7px;
-    font-size: 18px;
-    font-family: "Funnel Sans", serif;
-    padding: 9px;
-}
-
-#genre:hover {
-    cursor: pointer;
-}
-
 .form-check-input {
     font-size: larger;
 }
