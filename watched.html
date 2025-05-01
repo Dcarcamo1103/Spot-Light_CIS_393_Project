@@ -35,7 +35,7 @@
         <div id="tutorial_text">
             <h1> Start your journey here! </h1>
             <p>
-                Click on the "Add +" button to add a movie to your list.
+                Click on the "Add <i id="add_sign" class="bi bi-plus-lg"></i>" button to add a movie to your list.
             </p>
         </div>
         <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
@@ -54,7 +54,7 @@
 
                         <!-- Removed genre selection box -->
                         
-                        <label for="status" class="form_label">Status</label>
+                        <label for="status" class="form_label" id="status">Status</label>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="status" id="watched" value="Watched" checked required>
                             <label class="form-check-label" for="watched">
@@ -66,6 +66,24 @@
                             <label class="form-check-label" for="to_watch">
                                 To Be Watched
                             </label>
+                        </div>
+
+                        <label class="form_label" for="rating" id="score">Score</label>
+                        <div id="rating">
+                            <input type="radio" id="star1" name="rating" value="5" class="ratingStar"/>
+                            <label for="star5" class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                            <input type="radio" id="star2" name="rating" value="4" class="ratingStar"/>
+                            <label for="star4"class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                            <input type="radio" id="star3" name="rating" value="3" class="ratingStar"/>
+                            <label for="star3" class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                            <input type="radio" id="star4" name="rating" value="2" class="ratingStar"/>
+                            <label for="star2"class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                            <input type="radio" id="star5" name="rating" value="1" class="ratingStar"/>
+                            <label for="star1" class="ratingLabel"><i class="bi bi-star"></i></label>
                         </div>
 
                         <div class="d-grid gap-2 col-6 mx-auto">

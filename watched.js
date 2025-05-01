@@ -36,11 +36,32 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
         status,
         imdbID: movieData.imdbID // Store the IMDb ID for fetching details later
     };
+
+    // Check if the movie already exists in the table
+    const existingMovies = Array.from(document.querySelectorAll('#movieTable tbody tr')).map(row => {
+        return {
+            title: row.cells[1].textContent.trim(),
+            year: row.cells[2].textContent.trim()
+        };
+    });
+    const movieExists = existingMovies.some(existingMovie => {
+        return existingMovie.title === movie.title && existingMovie.year === movie.year;
+    });
+    if (movieExists) {
+        appendAlert('Movie already exists in the list.', 'warning');
+        return;
+    }
+
     document.getElementById('movieTable').style.display = 'table'; // Show the table after adding a movie
     document.getElementById('tutorial_text').style.display = 'none'; // Hide the tutorial text
 
     addMovieToTable(movie);
     this.reset(); // Reset the form after submission
+
+    // Reset star selection
+    selectedValue = 0;
+    updateStars(selectedValue);
+    radios.forEach(radio => radio.checked = false);
 
     // Reset the suggestion box
     const suggestionsList = document.getElementById('suggestions');
@@ -55,6 +76,47 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const toastLiveExample = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
+});
+
+// Star rating functionality
+const ratingContainer = document.getElementById('rating');
+const labels = Array.from(ratingContainer.querySelectorAll('.ratingLabel'));
+const radios = ratingContainer.querySelectorAll('input[type="radio"]');
+
+let selectedValue = 0;
+
+// Update stars based on given value
+function updateStars(value) {
+  labels.forEach((label, index) => {
+    const icon = label.querySelector('i');
+    if (index < value) {
+      icon.classList.add('bi-star-fill');
+      icon.classList.remove('bi-star');
+    } else {
+      icon.classList.add('bi-star');
+      icon.classList.remove('bi-star-fill');
+    }
+  });
+}
+
+// Hover preview
+labels.forEach((label, index) => {
+  label.addEventListener('mouseenter', () => {
+    updateStars(index + 1);
+  });
+});
+
+// Reset to selected on mouse leave
+ratingContainer.addEventListener('mouseleave', () => {
+  updateStars(selectedValue);
+});
+
+// Handle clicks (rating selection)
+radios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    selectedValue = parseInt(radio.value);
+    updateStars(selectedValue);
+  });
 });
 
 let debounceTimeout;
@@ -175,6 +237,7 @@ document.addEventListener('click', async function(event) {
 
 function openEditModal(movie) {
     // Implement edit functionality
+
 }
 
 function toggleMovieStatus(status) {
