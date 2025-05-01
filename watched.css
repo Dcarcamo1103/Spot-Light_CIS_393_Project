@@ -54,10 +54,6 @@ body {
     border-bottom-color: #EADFAD;
 }
 
-#add_sign {
-    font-size: larger;
-}
-
 #nav_add_btn:hover {
     border-bottom-color: #EADFAD;
 }
@@ -150,21 +146,13 @@ body {
     padding: 9px;
 }
 
-#genre {
-    background-color: rgba(234, 223, 173, 0.8);
-    border-style: none;
-    border-radius: 7px;
-    font-size: 18px;
-    font-family: "Funnel Sans", serif;
-    padding: 9px;
-}
-
-#genre:hover {
-    cursor: pointer;
+#status {
+    margin-top: 3%;
+    margin-bottom: 0;
 }
 
 .form-check-input {
-    font-size: larger;
+    font-size: 20px;
 }
 
 .form-check-label{
@@ -172,9 +160,34 @@ body {
     font-size: 20px;
     font-weight: 200;
     font-family: "Funnel Sans", serif;
-    /* word-spacing: 1.2px; */
+    word-spacing: 1.2px;
     line-height: 2rem;
-    /* display: block; */
+    display: block;
+}
+
+#score {
+    margin-top: 3%;
+    margin-bottom: 0 !important;
+}
+
+#rating {
+    width: fit-content;
+}
+
+.ratingStar {
+    display: none;
+}
+
+#rating > label {
+    display: inline-block;
+    cursor: pointer;
+    color: #EADFAD;
+    margin-right: 5px;
+}
+
+#rating > label > i {
+    font-size: 2rem;
+    transition: all 0.3s ease-out;
 }
 
 #submit {
