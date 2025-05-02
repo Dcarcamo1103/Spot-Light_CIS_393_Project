@@ -342,12 +342,4 @@ and (max-height: 1310px) {
     #menu_bar > nav > a {
         margin-left: 35px;
     }
-
-    #delete_icon {
-        padding-bottom: 3px;
-    }
-
-    #edit_icon {
-        padding-bottom: 3px;
-    }
 }
