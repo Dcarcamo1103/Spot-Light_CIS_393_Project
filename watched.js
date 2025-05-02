@@ -6,6 +6,7 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
 
     const title = document.getElementById('title').value;
     const status = document.querySelector('input[name="status"]:checked').value;
+    const score = document.querySelector('input[name="rating"]:checked').value; // Get the selected score
 
     const alertPlaceholder = document.getElementById('warning_placeholder');
     alertPlaceholder.innerHTML = ''; // Clear alerts
@@ -34,6 +35,7 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
         year: movieData.Year, // Use the release year from the API
         type: movieData.Type, // Use the movie type from the API
         status,
+        score, // Use the selected score from the radio buttons
         imdbID: movieData.imdbID // Store the IMDb ID for fetching details later
     };
 
@@ -76,47 +78,6 @@ document.getElementById('movieForm').addEventListener('submit', async function(e
     const toastLiveExample = document.getElementById('liveToast');
     const toast = new bootstrap.Toast(toastLiveExample);
     toast.show();
-});
-
-// Star rating functionality
-const ratingContainer = document.getElementById('rating');
-const labels = Array.from(ratingContainer.querySelectorAll('.ratingLabel'));
-const radios = ratingContainer.querySelectorAll('input[type="radio"]');
-
-let selectedValue = 0;
-
-// Update stars based on given value
-function updateStars(value) {
-  labels.forEach((label, index) => {
-    const icon = label.querySelector('i');
-    if (index < value) {
-      icon.classList.add('bi-star-fill');
-      icon.classList.remove('bi-star');
-    } else {
-      icon.classList.add('bi-star');
-      icon.classList.remove('bi-star-fill');
-    }
-  });
-}
-
-// Hover preview
-labels.forEach((label, index) => {
-  label.addEventListener('mouseenter', () => {
-    updateStars(index + 1);
-  });
-});
-
-// Reset to selected on mouse leave
-ratingContainer.addEventListener('mouseleave', () => {
-  updateStars(selectedValue);
-});
-
-// Handle clicks (rating selection)
-radios.forEach(radio => {
-  radio.addEventListener('change', () => {
-    selectedValue = parseInt(radio.value);
-    updateStars(selectedValue);
-  });
 });
 
 let debounceTimeout;
@@ -165,6 +126,47 @@ async function fetchSuggestions(title) {
     }
 }
 
+// Star rating functionality
+const ratingContainer = document.getElementById('rating');
+const labels = Array.from(ratingContainer.querySelectorAll('.ratingLabel'));
+const radios = ratingContainer.querySelectorAll('input[type="radio"]');
+
+let selectedValue = 0;
+
+// Update stars based on given value
+function updateStars(value) {
+  labels.forEach((label, index) => {
+    const icon = label.querySelector('i');
+    if (index < value) {
+      icon.classList.add('bi-star-fill');
+      icon.classList.remove('bi-star');
+    } else {
+      icon.classList.add('bi-star');
+      icon.classList.remove('bi-star-fill');
+    }
+  });
+}
+
+// Hover preview
+labels.forEach((label, index) => {
+  label.addEventListener('mouseenter', () => {
+    updateStars(index + 1);
+  });
+});
+
+// Reset to selected on mouse leave
+ratingContainer.addEventListener('mouseleave', () => {
+  updateStars(selectedValue);
+});
+
+// Handle clicks (rating selection)
+radios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    selectedValue = parseInt(radio.value);
+    updateStars(selectedValue);
+  });
+});
+
 // OMDb API Validation Function
 async function validateMovie(title) {
     const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8af8cd65`;
@@ -212,11 +214,43 @@ function addMovieToTable(movie) {
     row.insertCell(3).textContent = movie.type.charAt(0).toUpperCase() + movie.type.slice(1); // Capitalize type
     row.insertCell(4).textContent = movie.status;
 
-    const actions = row.insertCell(5);
-    actions.innerHTML = `
-        <button id="edit" class="list_btn" data-bs-toggle="modal" data-bs-target="#movieModal" onclick="openEditModal(${JSON.stringify(movie)})">Edit <i class="bi bi-pencil"></i></button>
-        <button id="delete" class="list_btn" onclick="deleteMovie(this)">Delete <i class="bi bi-trash3"></i></button>
+    row.insertCell(5).innerHTML = `
+        <span id="movieScore" class="badge rounded-pill" style="background-color: #B73F1D; color: #EADFAD; font-family: "Funnel Sans", serif;">${movie.score} / 5</span>
     `;
+
+    const actions = row.insertCell(6);
+    actions.innerHTML = `
+        <button id="edit" class="list_btn" data-bs-toggle="modal" data-bs-target="#movieModal" >Edit <i id="editIcon" class="bi bi-pencil"></i></button>
+        <button id="delete" class="list_btn" onclick="deleteMovie(this)">Delete <i id="deleteIcon" class="bi bi-trash3"></i></button>
+    `;
+    attachIconHoverEffects(row);
+}
+
+function attachIconHoverEffects(row) {
+    const editBtn = row.querySelector('#edit');
+    const deleteBtn = row.querySelector('#delete');
+    const editIcon = row.querySelector('#editIcon');
+    const deleteIcon = row.querySelector('#deleteIcon');
+
+    editBtn.addEventListener('mouseenter', () => {
+        editIcon.classList.remove('bi-pencil');
+        editIcon.classList.add('bi-pencil-fill');
+    });
+
+    editBtn.addEventListener('mouseleave', () => {
+        editIcon.classList.remove('bi-pencil-fill');
+        editIcon.classList.add('bi-pencil');
+    });
+
+    deleteBtn.addEventListener('mouseenter', () => {
+        deleteIcon.classList.remove('bi-trash3');
+        deleteIcon.classList.add('bi-trash3-fill');
+    });
+
+    deleteBtn.addEventListener('mouseleave', () => {
+        deleteIcon.classList.remove('bi-trash3-fill');
+        deleteIcon.classList.add('bi-trash3');
+    });
 }
 
 // Event listener for movie title clicks

@@ -131,10 +131,11 @@ body {
 .form_label {
     color: #EADFAD;
     font-size: 20px;
-    font-weight: 200;
+    font-weight: 500;
     font-family: "Funnel Sans", serif;
     /* word-spacing: 1.2px; */
     line-height: 2rem;
+    text-decoration: underline;
 }
 
 #title {
@@ -172,6 +173,8 @@ body {
 
 #rating {
     width: fit-content;
+    padding: 0;
+    margin-top: 0;
     margin-bottom: 4%;
 }
 
@@ -266,11 +269,10 @@ tbody > tr:hover {
     line-height: 1.3em;
 }
 
-#delete_icon {
-    padding-bottom: 5px;
-}
-
 #delete {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
     font-family: 'Lexend', serif;
     position: relative;
     color: #B73F1D;
@@ -284,11 +286,10 @@ tbody > tr:hover {
     margin: 0;
 }
 
-#edit_icon {
-    padding-bottom: 5px;
-}
-
 #edit {
+    display: block;
+    width: 100%; 
+    margin: 0 auto;
     font-family: 'Lexend', serif;
     position: relative;
     color: #4B607F;
@@ -324,6 +325,16 @@ tbody > tr:hover {
 #suggestions.show {
     opacity: 1;
     max-height: 200px;
+}
+
+tbody > tr > td:last-child {
+    text-align: center; /* Center align the content horizontally */
+    vertical-align: middle; /* Center align the content vertically */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center buttons horizontally within the cell */
+    justify-content: center; /* Center buttons vertically within the cell */
+    gap: 10px; /* Add spacing between buttons */
 }
 
 @media screen 
