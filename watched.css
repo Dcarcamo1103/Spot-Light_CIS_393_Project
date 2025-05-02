@@ -172,6 +172,7 @@ body {
 
 #rating {
     width: fit-content;
+    margin-bottom: 4%;
 }
 
 .ratingStar {
