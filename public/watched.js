@@ -195,6 +195,25 @@ async function fetchMovieDetails(imdbID) {
     }
 }
 
+async function saveMovieToDatabase(movie) {
+    try {
+        const response = await fetch('/api/movies', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movie)
+        });
+
+        if (!response.ok) {
+            console.error('Failed to save movie to database:', await response.text());
+        }
+    } catch (error) {
+        console.error('Error saving movie to database:', error);
+    }
+}
+
+// Modify addMovieToTable to save the movie to the database
 function addMovieToTable(movie) {
     const tbody = document.querySelector('#movieTable tbody');
     const row = tbody.insertRow();
@@ -224,6 +243,9 @@ function addMovieToTable(movie) {
         <button id="delete" class="list_btn" onclick="deleteMovie(this)">Delete <i id="deleteIcon" class="bi bi-trash3"></i></button>
     `;
     attachIconHoverEffects(row);
+
+    // Save the movie to the database
+    saveMovieToDatabase(movie);
 }
 
 function attachIconHoverEffects(row) {
