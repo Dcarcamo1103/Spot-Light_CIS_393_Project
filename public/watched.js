@@ -197,7 +197,7 @@ async function fetchMovieDetails(imdbID) {
 
 async function saveMovieToDatabase(movie) {
     try {
-        const response = await fetch('/api/movies', {
+        const response = await fetch('http://localhost:3000/api/movies', { // Ensure this URL matches your backend
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -207,6 +207,8 @@ async function saveMovieToDatabase(movie) {
 
         if (!response.ok) {
             console.error('Failed to save movie to database:', await response.text());
+        } else {
+            console.log('Movie saved successfully to the database.');
         }
     } catch (error) {
         console.error('Error saving movie to database:', error);
@@ -239,7 +241,7 @@ function addMovieToTable(movie) {
 
     const actions = row.insertCell(6);
     actions.innerHTML = `
-        <button id="edit" class="list_btn" data-bs-toggle="modal" data-bs-target="#movieModal" >Edit <i id="editIcon" class="bi bi-pencil"></i></button>
+        <button id="edit" class="list_btn" data-bs-toggle="modal" data-bs-target="#movieEditModal" >Edit <i id="editIcon" class="bi bi-pencil"></i></button>
         <button id="delete" class="list_btn" onclick="deleteMovie(this)">Delete <i id="deleteIcon" class="bi bi-trash3"></i></button>
     `;
     attachIconHoverEffects(row);
@@ -291,17 +293,167 @@ document.addEventListener('click', async function(event) {
     }
 });
 
-function openEditModal(movie) {
-    // Implement edit functionality
+function openEditModal(button) {
+    const row = button.parentElement.parentElement;
+    const title = row.querySelector('#movieTitle').textContent.trim();
+    const status = row.cells[4].textContent.trim();
+    const score = parseInt(row.querySelector('#movieScore').textContent.trim().split(' ')[0]);
 
+    // Populate modal fields
+    document.getElementById('movieEditModalTitle').textContent = `${title}`;
+    document.querySelector('#movieEditModal .modal-body').innerHTML = `
+        <form id="editMovieForm">
+            <label for="editStatus" class="form_label">Status</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="editStatus" id="editWatched" value="Watched" ${status === 'Watched' ? 'checked' : ''}>
+                <label class="form-check-label" for="editWatched">Watched</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="editStatus" id="editToWatch" value="To Be Watched" ${status === 'To Be Watched' ? 'checked' : ''}>
+                <label class="form-check-label" for="editToWatch">To Be Watched</label>
+            </div>
+
+            <label class="form_label" for="editScore" id="score">Score</label>
+            <div id="editRating">
+                <input type="radio" id="star1" name="rating" value="5" class="ratingStar"/>
+                <label for="star5" class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                <input type="radio" id="star2" name="rating" value="4" class="ratingStar"/>
+                <label for="star4" class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                <input type="radio" id="star3" name="rating" value="3" class="ratingStar"/>
+                <label for="star3" class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                <input type="radio" id="star4" name="rating" value="2" class="ratingStar"/>
+                <label for="star2" class="ratingLabel"><i class="bi bi-star"></i></label>
+
+                <input type="radio" id="star5" name="rating" value="1" class="ratingStar"/>
+                <label for="star1" class="ratingLabel"><i class="bi bi-star"></i></label>
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" id="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    `;
+
+    // Handle form submission
+    document.getElementById('editMovieForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const newStatus = document.querySelector('input[name="editStatus"]:checked').value;
+        const newScore = selectedValue; // Use the selectedValue from the star rating
+
+        // Update the table row
+        row.cells[4].textContent = newStatus;
+        row.querySelector('#movieScore').textContent = `${newScore} / 5`;
+
+        // Send updates to the database
+        const imdbID = row.querySelector('#movieTitle').getAttribute('data-imdbid');
+        try {
+            const response = await fetch(`http://localhost:3000/api/movies/${imdbID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: newStatus, score: newScore })
+            });
+
+            if (!response.ok) {
+                console.error('Failed to update movie in database:', await response.text());
+            } else {
+                console.log('Movie updated successfully in the database.');
+            }
+        } catch (error) {
+            console.error('Error updating movie in database:', error);
+        }
+
+        // Reset star selection
+        selectedValue = 0;
+        updateStars(selectedValue);
+        radios.forEach(radio => radio.checked = false);
+
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('movieEditModal'));
+        modal.hide();
+    });
+
+    // Initialize star rating functionality for the edit modal
+    const editRatingContainer = document.getElementById('editRating');
+    const editLabels = Array.from(editRatingContainer.querySelectorAll('.ratingLabel'));
+    const editRadios = editRatingContainer.querySelectorAll('input[type="radio"]');
+
+    // Update stars based on the selected value
+    function updateEditStars(value) {
+        editLabels.forEach((label, index) => {
+            const icon = label.querySelector('i');
+            if (index < value) {
+                icon.classList.add('bi-star-fill');
+                icon.classList.remove('bi-star');
+            } else {
+                icon.classList.add('bi-star');
+                icon.classList.remove('bi-star-fill');
+            }
+        });
+    }
+
+    // Hover preview for edit modal
+    editLabels.forEach((label, index) => {
+        label.addEventListener('mouseenter', () => {
+            updateEditStars(index + 1);
+        });
+    });
+
+    // Reset to selected on mouse leave
+    editRatingContainer.addEventListener('mouseleave', () => {
+        updateEditStars(selectedValue);
+    });
+
+    // Handle clicks (rating selection) for edit modal
+    editRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            selectedValue = parseInt(radio.value);
+            updateEditStars(selectedValue);
+        });
+    });
+
+    // Set initial star rating based on the current score
+    updateEditStars(score);
+    editRadios.forEach(radio => {
+        if (parseInt(radio.value) === score) {
+            radio.checked = true;
+        }
+    });
 }
 
-function toggleMovieStatus(status) {
-    // Implement toggle status functionality
+// Attach event listener to edit buttons
+document.addEventListener('click', function(event) {
+    if (event.target && event.target.id === 'edit') {
+        openEditModal(event.target);
+    }
+});
+
+async function deleteMovieFromDatabase(imdbID) {
+    try {
+        const response = await fetch(`http://localhost:3000/api/movies/${imdbID}`, { // Ensure this URL matches your backend
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            console.error('Failed to delete movie from database:', await response.text());
+        } else {
+            console.log('Movie deleted successfully from the database.');
+        }
+    } catch (error) {
+        console.error('Error deleting movie from database:', error);
+    }
 }
 
 function deleteMovie(button) {
     const row = button.parentElement.parentElement;
+    const imdbID = row.querySelector('#movieTitle').getAttribute('data-imdbid'); // Get IMDb ID from the row
+
+    // Remove the row from the table
     row.remove();
 
     // Hide the table if no rows are left
@@ -310,4 +462,24 @@ function deleteMovie(button) {
         document.getElementById('movieTable').style.display = 'none';
         document.getElementById('tutorial_text').style.display = 'flex'; // Show the tutorial text again
     }
+
+    // Delete the movie from the database
+    deleteMovieFromDatabase(imdbID);
 }
+
+// Test backend connection
+async function testBackendConnection() {
+    try {
+        const response = await fetch('http://localhost:3000/api/health');
+        if (response.ok) {
+            console.log('Backend is reachable');
+        } else {
+            console.error('Backend health check failed:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error connecting to backend:', error);
+    }
+}
+
+// Call the function to test the backend connection
+testBackendConnection();

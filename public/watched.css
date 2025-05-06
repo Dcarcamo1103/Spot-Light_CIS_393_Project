@@ -170,7 +170,8 @@ body {
     margin-bottom: 0 !important;
 }
 
-#rating {
+#rating,
+#editRating {
     width: fit-content;
     padding: 0;
     margin-top: 0;
@@ -181,14 +182,16 @@ body {
     display: none;
 }
 
-#rating > label {
+#rating > label,
+#editRating > label {
     display: inline-block;
     cursor: pointer;
     color: #EADFAD;
     margin-right: 5px;
 }
 
-#rating > label > i {
+#rating > label > i,
+#editRating > label > i {
     font-size: 2rem;
     transition: all 0.3s ease-out;
 }
