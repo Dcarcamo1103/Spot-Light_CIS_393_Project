@@ -48,6 +48,19 @@ app.post('/api/movies', (req, res) => {
     });
 });
 
+// Route to fetch all movies
+app.get('/api/movies', (req, res) => {
+    const sql = `SELECT * FROM movies`;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error fetching movies:', err);
+            return res.status(500).send('Failed to fetch movies');
+        }
+        res.status(200).json(results);
+    });
+});
+
 app.put('/api/movies/:imdbID', (req, res) => {
     const { imdbID } = req.params;
     const { status, score } = req.body;

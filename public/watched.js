@@ -216,7 +216,7 @@ async function saveMovieToDatabase(movie) {
 }
 
 // Modify addMovieToTable to save the movie to the database
-function addMovieToTable(movie) {
+function addMovieToTable(movie, skipDatabaseSave = false) {
     const tbody = document.querySelector('#movieTable tbody');
     const row = tbody.insertRow();
 
@@ -246,8 +246,10 @@ function addMovieToTable(movie) {
     `;
     attachIconHoverEffects(row);
 
-    // Save the movie to the database
-    saveMovieToDatabase(movie);
+    // Save the movie to the database unless explicitly skipped
+    if (!skipDatabaseSave) {
+        saveMovieToDatabase(movie);
+    }
 }
 
 function attachIconHoverEffects(row) {
@@ -483,3 +485,30 @@ async function testBackendConnection() {
 
 // Call the function to test the backend connection
 testBackendConnection();
+
+// Fetch movies from the database and populate the table
+async function loadMoviesFromDatabase() {
+    try {
+        const response = await fetch('http://localhost:3000/api/movies');
+        if (!response.ok) {
+            console.error('Failed to fetch movies from database:', await response.text());
+            return;
+        }
+
+        const movies = await response.json();
+        const tbody = document.querySelector('#movieTable tbody');
+        tbody.innerHTML = ''; // Clear existing rows to prevent duplication
+
+        if (movies.length > 0) {
+            document.getElementById('movieTable').style.display = 'table'; // Show the table
+            document.getElementById('tutorial_text').style.display = 'none'; // Hide the tutorial text
+
+            movies.forEach(movie => addMovieToTable(movie, true)); // Skip saving to database
+        }
+    } catch (error) {
+        console.error('Error fetching movies from database:', error);
+    }
+}
+
+// Call the function to load movies on page load
+document.addEventListener('DOMContentLoaded', loadMoviesFromDatabase);
